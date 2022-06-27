@@ -1,0 +1,296 @@
+<html>
+	<head>
+		<h2>The diamond race</h2>
+		<p>Author: Chayan Kumar Saha</p>
+		<p>Date: 27/06/2022 </p>
+	</head>
+	<style>
+		/*
+		I have used CSS to create the diamond shapes of blue (i.e., #blueDiamond), green, red and yellow colors
+		Also, created shapes (buttoon-like, i.e., #blueScoreButton) for showing the scores, where color represents the corresponding diamond score
+		*/
+		#blueDiamond {
+		clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+		width: 10%;
+		height: 10%;
+		border-radius: 0%;
+		background-color: blue;
+		position: relative;
+		padding: 0;
+		margin: 5% 2.5%;
+		cursor: pointer;
+		}
+		#greenDiamond {
+		clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+		width: 10%;
+		height: 10%;
+		border-radius: 0%;
+		background-color: green;
+		position: relative;
+		padding: 0;
+		margin: 5% 2.5%;
+		cursor: pointer;
+		}
+		#redDiamond {
+		clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+		width: 10%;
+		height: 10%;
+		border-radius: 0%;
+		background-color: red;
+		position: relative;
+		padding: 0;
+		margin: 5% 2.5%;
+		cursor: pointer;
+		}
+		#yellowDiamond {
+		clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+		width: 10%;
+		height: 10%;
+		border-radius: 0%;
+		background-color: yellow;
+		position: relative;
+		padding: 0;
+		margin: 5% 2.5%;
+		cursor: pointer;
+		}
+		.container {
+		max-width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		}
+		button {
+		background-color: #2D4671;
+		width: 12%;
+		height: 8%;
+		color: #fff;
+		margin: 2% 4%;
+		border: solid 1px;
+		}
+		#endButton {
+		width: 21%;
+		height: 8%;
+		background-color: white;
+		color: black;
+		margin: 2% 0%;
+		border: solid 0px;
+		}
+		#whiteScoreButton {
+		width: 15%;
+		height: 8%;
+		background-color: white;
+		color: black;
+		margin: 2% 0%;
+		border: solid 0px;
+		}
+		#blueScoreButton {
+		width: 15%;
+		height: 8%;
+		background-color: blue;
+		color: lightblue;
+		margin: 2% 0%;
+		border: solid 0px;
+		}
+		#greenScoreButton {
+		width: 15%;
+		height: 8%;
+		background-color: green;
+		color: lightblue;
+		margin: 2% 0%;
+		border: solid 0px;
+		}
+		#redScoreButton {
+		width: 15%;
+		height: 8%;
+		background-color: red;
+		color: lightblue;
+		margin: 2% 0%;
+		border: solid 0px;
+		}
+		#yellowScoreButton {
+		width: 15%;
+		height: 8%;
+		background-color: yellow;
+		color: lightblue;
+		margin: 2% 0%;
+		border: solid 0px;
+		}
+	</style>
+
+	<body>
+		<div class="container"> <!-- This container used to set the score and reset button -->
+			<button id="whiteScoreButton" name="white"> <p> Score board </p> </button>
+			<button id="blueScoreButton" name="blue"> <p id="bscore"> 0 </p> </button>
+			<button id="greenScoreButton" name="green"> <p id="gscore"> 0 </p> </button>
+			<button id="redScoreButton" name="red"> <p id="rscore"> 0 </p> </button>
+			<button id="yellowScoreButton" name="ýellow"> <p id="yscore"> 0 </p> </button>
+			<button id="reset" name="Reset"> <p> Reset </p></button>
+			<button id="whiteScoreButton" name="white"> <p> Start </p> </button>
+			<button id="whiteScoreButton" name="white"> <p>  </p> </button>
+			<button id="whiteScoreButton" name="white"> <p>  </p> </button>
+			<button id="whiteScoreButton" name="white"> <p>  </p> </button>
+			<button id="whiteScoreButton" name="white"> <p>  </p> </button>
+			<button id="endButton"> <p> Stop </p></button>
+		</div>
+
+		<div id="blueDiamond"></div> <!-- The Blue diamond  -->
+		<div id="greenDiamond"></div> <!-- The Green diamond  -->
+		<div id="redDiamond"></div> <!-- The Red diamond  -->
+		<div id="yellowDiamond"></div> <!-- The Yellow diamond  -->
+			<script>
+				var leftPosB = 0; //For each diamond I set initial position as leftPos, for example, Blue diamond start position is leftPosB
+				var leftPosG = 0;
+				var leftPosR = 0;
+				var leftPosY = 0;
+				var scoreB = 0; //For each diamond I set initial score, for example, Blue diamond start score is scoreB
+				var scoreG = 0;
+				var scoreR = 0;
+				var scoreY = 0;
+				var blue_button = document.getElementById('blueDiamond'); //For each diamond I set button
+				var green_button = document.getElementById('greenDiamond');
+				var red_button = document.getElementById('redDiamond');
+				var yellow_button = document.getElementById('yellowDiamond');
+				var reset_button = document.getElementById('reset');
+
+				function bmove() {
+					leftPosB+=window.innerWidth*7.9/100; //with each mouse click on the diamond it moves roughly 8% of the window width)
+					scoreB+=1; // score counts
+					blueDiamond.style.left = leftPosB + 'px';
+					document.getElementById("bscore").innerHTML = scoreB;
+					clearInterval(moveblueDiamond);
+					if (scoreB>10) { // when score is more than 10, and still user clicks on the diamonds, it alerts 'Game over' and resets to start position
+					alert("Blue Wins, Game Over!!!");
+					leftPosB = 0;
+					leftPosG = 0;
+					leftPosR = 0;
+					leftPosY = 0;
+					scoreB = 0;
+					scoreG = 0;
+					scoreR = 0;
+					scoreY = 0;
+					blueDiamond.style.left = leftPosB + 'px';
+					document.getElementById("bscore").innerHTML = scoreB;
+					greenDiamond.style.left = leftPosG + 'px';
+					document.getElementById("gscore").innerHTML = scoreG;
+					redDiamond.style.left = leftPosR + 'px';
+					document.getElementById("rscore").innerHTML = scoreR;
+					yellowDiamond.style.left = leftPosY + 'px';
+					document.getElementById("yscore").innerHTML = scoreY;}
+					}
+
+				function gmove() {
+					leftPosG+=window.innerWidth*7.9/100;
+					scoreG+=1;
+					greenDiamond.style.left = leftPosG + 'px';
+					document.getElementById("gscore").innerHTML = scoreG;
+					clearInterval(movegreenDiamond);
+					if (scoreG>10) {
+					alert("Green Wins, Game Over!!!");
+					leftPosB = 0;
+					leftPosG = 0;
+					leftPosR = 0;
+					leftPosY = 0;
+					scoreB = 0;
+					scoreG = 0;
+					scoreR = 0;
+					scoreY = 0;
+					blueDiamond.style.left = leftPosB + 'px';
+					document.getElementById("bscore").innerHTML = scoreB;
+					greenDiamond.style.left = leftPosG + 'px';
+					document.getElementById("gscore").innerHTML = scoreG;
+					redDiamond.style.left = leftPosR + 'px';
+					document.getElementById("rscore").innerHTML = scoreR;
+					yellowDiamond.style.left = leftPosY + 'px';
+					document.getElementById("yscore").innerHTML = scoreY;}
+					}
+				function rmove() {
+					leftPosR+=window.innerWidth*7.9/100;
+					scoreR+=1;
+					redDiamond.style.left = leftPosR + 'px';
+					document.getElementById("rscore").innerHTML = scoreR;
+					clearInterval(moveredDiamond);
+					if (scoreR>10) {
+					alert("Red Wins, Game Over!!!");
+					leftPosB = 0;
+					leftPosG = 0;
+					leftPosR = 0;
+					leftPosY = 0;
+					scoreB = 0;
+					scoreG = 0;
+					scoreR = 0;
+					scoreY = 0;
+					blueDiamond.style.left = leftPosB + 'px';
+					document.getElementById("bscore").innerHTML = scoreB;
+					greenDiamond.style.left = leftPosG + 'px';
+					document.getElementById("gscore").innerHTML = scoreG;
+					redDiamond.style.left = leftPosR + 'px';
+					document.getElementById("rscore").innerHTML = scoreR;
+					yellowDiamond.style.left = leftPosY + 'px';
+					document.getElementById("yscore").innerHTML = scoreY;}
+					}
+				function ymove() {
+					leftPosY+=window.innerWidth*7.9/100;
+					scoreY+=1;
+					yellowDiamond.style.left = leftPosY + 'px';
+					document.getElementById("yscore").innerHTML = scoreY;
+					clearInterval(moveyellowDiamond);
+					if (scoreY>10) {
+					alert("Yellow Wins, Game Over!!!");
+					leftPosB = 0;
+					leftPosG = 0;
+					leftPosR = 0;
+					leftPosY = 0;
+					scoreB = 0;
+					scoreG = 0;
+					scoreR = 0;
+					scoreY = 0;
+					blueDiamond.style.left = leftPosB + 'px';
+					document.getElementById("bscore").innerHTML = scoreB;
+					greenDiamond.style.left = leftPosG + 'px';
+					document.getElementById("gscore").innerHTML = scoreG;
+					redDiamond.style.left = leftPosR + 'px';
+					document.getElementById("rscore").innerHTML = scoreR;
+					yellowDiamond.style.left = leftPosY + 'px';
+					document.getElementById("yscore").innerHTML = scoreY;}
+					}
+
+
+				var bstart = function() { //Click on each diamond initiates the movement of diamond using this function
+					moveblueDiamond = setInterval(bmove, 10);
+				}
+				var gstart = function() {
+					movegreenDiamond = setInterval(gmove, 10);
+				}
+				var rstart = function() {
+					moveredDiamond = setInterval(rmove, 10);
+				}
+				var ystart = function() {
+					moveyellowDiamond = setInterval(ymove, 10);
+				}
+				var reset = function() { //reset all diamond position and scores
+					leftPosB = 0;
+					leftPosG = 0;
+					leftPosR = 0;
+					leftPosY = 0;
+					scoreB = 0;
+					scoreG = 0;
+					scoreR = 0;
+					scoreY = 0;
+					blueDiamond.style.left = leftPosB + 'px';
+					document.getElementById("bscore").innerHTML = scoreB;
+					greenDiamond.style.left = leftPosG + 'px';
+					document.getElementById("gscore").innerHTML = scoreG;
+					redDiamond.style.left = leftPosR + 'px';
+					document.getElementById("rscore").innerHTML = scoreR;
+					yellowDiamond.style.left = leftPosY + 'px';
+					document.getElementById("yscore").innerHTML = scoreY;
+				}
+
+				blue_button.addEventListener('click', bstart);
+				green_button.addEventListener('click', gstart);
+				red_button.addEventListener('click', rstart);
+				yellow_button.addEventListener('click', ystart);
+				reset_button.addEventListener('click', reset);
+
+			</script>
+	</body>
+</html>
